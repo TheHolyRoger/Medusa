@@ -501,6 +501,13 @@ class ProvidersHandler(BaseRequestHandler):
             except (AttributeError, KeyError):
                 provider.custom_url = None
 
+        if hasattr(provider, 'custom_user_agent'):
+            try:
+                provider.custom_user_agent = config['customUserAgent']
+                provider.update_headers()
+            except (AttributeError, KeyError):
+                provider.custom_user_agent = None
+
         if hasattr(provider, 'minseed'):
             try:
                 provider.minseed = config['minseed']

@@ -26,6 +26,10 @@
                 </template>
             </config-textbox>
 
+            <config-textbox v-if="'customUserAgent' in editProvider.config" v-model="editProvider.config.customUserAgent" label="Custom User Agent" :id="`${editProvider.id}_custom_user_agent`">
+                <p>It is recommended to use the same user agent sent by your browser, you can find this in Developer Tools.</p>
+            </config-textbox>
+
             <config-textbox v-if="'passkey' in editProvider.config" v-model="editProvider.config.passkey" label="Passkey" :id="`${editProvider.id}_passkey`" />
 
             <config-textbox v-if="'pin' in editProvider.config" v-model="editProvider.config.pin" type="password" label="Pin" :id="`${editProvider.id}_pin`" />

@@ -1122,6 +1122,7 @@ class Application(object):
 
                 if provider.provider_type == GenericProvider.TORRENT:
                     load_provider_setting(app.CFG, provider, 'string', 'custom_url', '', censor_log='low')
+                    load_provider_setting(app.CFG, provider, 'string', 'custom_user_agent', '', censor_log='low')
                     load_provider_setting(app.CFG, provider, 'string', 'hash', '', censor_log='low')
                     load_provider_setting(app.CFG, provider, 'string', 'digest', '', censor_log='low')
                     load_provider_setting(app.CFG, provider, 'string', 'password', '', censor_log='low')
@@ -1142,6 +1143,8 @@ class Application(object):
                     load_provider_setting(app.CFG, provider, 'bool', 'subtitle', 0)
                     if provider.enable_cookies:
                         load_provider_setting(app.CFG, provider, 'string', 'cookies', '', censor_log='low')
+                    if hasattr(provider, "update_headers"):
+                        provider.update_headers()
 
                 if isinstance(provider, TorrentRssProvider):
                     load_provider_setting(app.CFG, provider, 'string', 'url', '', censor_log='low')
@@ -1776,7 +1779,7 @@ class Application(object):
                     'password',
                 ],
                 GenericProvider.TORRENT: [
-                    'custom_url', 'digest', 'hash', 'passkey', 'pin', 'pid', 'confirmed', 'ranked', 'engrelease',
+                    'custom_url', 'custom_user_agent', 'digest', 'hash', 'passkey', 'pin', 'pid', 'confirmed', 'ranked', 'engrelease',
                     'onlyspasearch', 'sorting', 'ratio', 'minseed', 'minleech', 'options', 'freeleech',
                     'cat', 'subtitle', 'cookies', 'title_tag', 'cap_tv_search',
                 ],

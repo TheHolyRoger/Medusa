@@ -985,6 +985,9 @@ class GenericProvider(object):
         if hasattr(self, 'custom_url'):
             data['config']['customUrl'] = self.custom_url
 
+        if hasattr(self, 'custom_user_agent'):
+            data['config']['customUserAgent'] = self.custom_user_agent
+
         if hasattr(self, 'minseed'):
             data['config']['minseed'] = self.minseed
 

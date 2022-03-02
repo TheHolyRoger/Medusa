@@ -28,6 +28,9 @@ class IPTorrentsProvider(TorrentProvider):
         """Initialize the class."""
         super(IPTorrentsProvider, self).__init__('IPTorrents')
 
+        # Custom User Agent
+        self.custom_user_agent = ''
+
         # URLs
         self.url = 'https://iptorrents.me'
 
@@ -43,6 +46,18 @@ class IPTorrentsProvider(TorrentProvider):
 
         # Cache
         self.cache = tv.Cache(self)
+
+    def update_headers(self):
+        if len(self.custom_user_agent):
+            self.headers['User-Agent'] = self.custom_user_agent
+            self.headers['Host'] = 'iptorrents.com'
+            self.headers['TE'] = 'Trailers'
+            self.headers['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+            self.headers['Accept-Encoding'] = 'gzip, deflate, br'
+            self.headers['Accept-Language'] = 'en-GB,en;q=0.5'
+            self.headers['Connection'] = 'keep-alive'
+            self.headers['Upgrade-Insecure-Requests'] = '1'
+        self.session.headers.update(self.headers)
 
     def search(self, search_strings, age=0, ep_obj=None, **kwargs):
         """
